@@ -7,7 +7,8 @@
 #define PRESSLEFT 0
 #define PRESSRIGHT 1
 
-
+#define EMPTYKEG 29.7
+#define FULLKEG 160.5
 
 void setup() {
   Serial.begin(9600);
@@ -40,8 +41,8 @@ void loop() {
   Serial.print(",");
   
   //Light sensor reading
-  int light = analogRead(LIGHTSENSOR);
-  Serial.print(light);
+  float light = analogRead(LIGHTSENSOR);
+  Serial.print(light/330 * 100);
   Serial.print(",");
   
   //Door sensor reading
@@ -57,13 +58,14 @@ void loop() {
   //Pressure sensor reading
   int pressL = analogRead(PRESSLEFT);
   int pressR = analogRead(PRESSRIGHT);
-  Serial.print((pressL + pressR) / 2);
   
   
+  Serial.print((pressL + pressR) / 2 * .25);
+  Serial.print(",");
+  Serial.print(pressL);
+  Serial.print(",");
+  Serial.print(pressR);
   Serial.println(",*");
-  
-  
-  
 
   delay(500); 
 }
