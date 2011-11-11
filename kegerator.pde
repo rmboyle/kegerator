@@ -21,7 +21,7 @@ void loop() {
 
   Serial.print("$,");
   
-  Serial.print("keg1,");
+  Serial.print("keg2,");
   
   //Temp sensor reading
   Wire.requestFrom(TEMPSENSOR,2);  
@@ -59,8 +59,18 @@ void loop() {
   int pressL = analogRead(PRESSLEFT);
   int pressR = analogRead(PRESSRIGHT);
   
-  
-  Serial.print((pressL + pressR) / 2 * .25);
+  double avg = (pressL + pressR) /2;
+  if(avg > 331){ 
+    Serial.print("OK");
+  }
+  else
+  {
+    double avgP = avg - 300;
+    if(avg > 300)
+    Serial.print(avgP);
+    else
+    Serial.print("0");
+  }
   Serial.print(",");
   Serial.print(pressL);
   Serial.print(",");
